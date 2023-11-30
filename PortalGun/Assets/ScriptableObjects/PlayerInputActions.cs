@@ -46,9 +46,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""ShootOrange"",
                     ""type"": ""Button"",
                     ""id"": ""abcd592b-7556-4b71-8715-a3541dcba02e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootBlue"",
+                    ""type"": ""Button"",
+                    ""id"": ""e655ba82-8fc8-4c04-9d27-bb8e07a85266"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""6ee2e6b4-3303-4895-8317-51e6dd6f8673"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -129,7 +147,29 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""ShootOrange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e3f7335d-e1dc-44c7-a4cd-1a5f0283c659"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootBlue"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bdd41ae3-4445-4014-b35b-8ee15f97516b"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -142,7 +182,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Movement = asset.FindActionMap("Movement", throwIfNotFound: true);
         m_Movement_Rotation = m_Movement.FindAction("Rotation", throwIfNotFound: true);
         m_Movement_WASD = m_Movement.FindAction("WASD", throwIfNotFound: true);
-        m_Movement_Shoot = m_Movement.FindAction("Shoot", throwIfNotFound: true);
+        m_Movement_ShootOrange = m_Movement.FindAction("ShootOrange", throwIfNotFound: true);
+        m_Movement_ShootBlue = m_Movement.FindAction("ShootBlue", throwIfNotFound: true);
+        m_Movement_Jump = m_Movement.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -206,14 +248,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IMovementActions> m_MovementActionsCallbackInterfaces = new List<IMovementActions>();
     private readonly InputAction m_Movement_Rotation;
     private readonly InputAction m_Movement_WASD;
-    private readonly InputAction m_Movement_Shoot;
+    private readonly InputAction m_Movement_ShootOrange;
+    private readonly InputAction m_Movement_ShootBlue;
+    private readonly InputAction m_Movement_Jump;
     public struct MovementActions
     {
         private @PlayerInputActions m_Wrapper;
         public MovementActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Rotation => m_Wrapper.m_Movement_Rotation;
         public InputAction @WASD => m_Wrapper.m_Movement_WASD;
-        public InputAction @Shoot => m_Wrapper.m_Movement_Shoot;
+        public InputAction @ShootOrange => m_Wrapper.m_Movement_ShootOrange;
+        public InputAction @ShootBlue => m_Wrapper.m_Movement_ShootBlue;
+        public InputAction @Jump => m_Wrapper.m_Movement_Jump;
         public InputActionMap Get() { return m_Wrapper.m_Movement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -229,9 +275,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @WASD.started += instance.OnWASD;
             @WASD.performed += instance.OnWASD;
             @WASD.canceled += instance.OnWASD;
-            @Shoot.started += instance.OnShoot;
-            @Shoot.performed += instance.OnShoot;
-            @Shoot.canceled += instance.OnShoot;
+            @ShootOrange.started += instance.OnShootOrange;
+            @ShootOrange.performed += instance.OnShootOrange;
+            @ShootOrange.canceled += instance.OnShootOrange;
+            @ShootBlue.started += instance.OnShootBlue;
+            @ShootBlue.performed += instance.OnShootBlue;
+            @ShootBlue.canceled += instance.OnShootBlue;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IMovementActions instance)
@@ -242,9 +294,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @WASD.started -= instance.OnWASD;
             @WASD.performed -= instance.OnWASD;
             @WASD.canceled -= instance.OnWASD;
-            @Shoot.started -= instance.OnShoot;
-            @Shoot.performed -= instance.OnShoot;
-            @Shoot.canceled -= instance.OnShoot;
+            @ShootOrange.started -= instance.OnShootOrange;
+            @ShootOrange.performed -= instance.OnShootOrange;
+            @ShootOrange.canceled -= instance.OnShootOrange;
+            @ShootBlue.started -= instance.OnShootBlue;
+            @ShootBlue.performed -= instance.OnShootBlue;
+            @ShootBlue.canceled -= instance.OnShootBlue;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IMovementActions instance)
@@ -266,6 +324,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnRotation(InputAction.CallbackContext context);
         void OnWASD(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
+        void OnShootOrange(InputAction.CallbackContext context);
+        void OnShootBlue(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }

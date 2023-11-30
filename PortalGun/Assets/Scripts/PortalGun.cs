@@ -19,13 +19,27 @@ public class PortalGun : MonoBehaviour
 
     public GameObject blueShot, orangeShot;
 
+    public Material blueColour, orangeColour;
+    public GameObject gunLight;
     public GameObject bluePortal, orangePortal;
-    private GameObject _bluePortal = null, _orangePortal = null;
+    public GameObject _bluePortal = null, _orangePortal = null;
 
-    [SerializeField] private float _shotSpeed = .5f;
+    [SerializeField] private float _shotSpeed = 2f; 
+
+    private static PortalGun instance;
+    public static PortalGun Instance { get { return instance; } }
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
         shots = new List<GameObject>();
         deleteShots = new List<GameObject>();
     }
@@ -46,12 +60,11 @@ public class PortalGun : MonoBehaviour
         foreach(GameObject shot in shots)
         {
             Vector3 temp = shot.transform.position;
-            temp.z += _shotSpeed;
+            temp += shot.transform.forward * _shotSpeed;
             shot.transform.position = temp;
             if (!shot.GetComponent<Shot>().getState())
             {
                 deleteShots.Add(shot);
-                spawnPortal(shot.GetComponent<Shot>().getType(), shot);
             }
         }
         foreach(GameObject shot in deleteShots)
@@ -63,30 +76,21 @@ public class PortalGun : MonoBehaviour
 
     }
 
-    private void spawnPortal(PortalType portalType, GameObject shot)
-    {
-        switch (portalType)
-        {
-            case PortalType.blue:
-                if (_bluePortal != null)
-                    Destroy(_bluePortal);
-
-                _bluePortal = Instantiate(bluePortal, shot.transform.position, Quaternion.identity);
-                break;
-            case PortalType.orange:
-                if (_orangePortal != null)
-                    Destroy(_orangePortal);
-                _orangePortal = Instantiate(orangePortal, shot.transform.position, Quaternion.identity);
-                break;
-            default:
-                break;
-        }
-    }
     public void onLeftClick(InputAction.CallbackContext context)
     {
         if(context.started)
         {
             shoot(PortalType.orange);
+           gunLight.GetComponent<Renderer>().material = orangeColour;
+        }
+    }
+
+    public void onRightClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            shoot(PortalType.blue);
+            gunLight.GetComponent<Renderer>().material = blueColour;
         }
     }
 
@@ -95,22 +99,14 @@ public class PortalGun : MonoBehaviour
         switch (portalType)
         {
             case PortalType.blue:
-                shots.Add(Instantiate(blueShot, transform.position, new Quaternion(90,0,0,0)));
+                shots.Add(Instantiate(blueShot, transform.position, transform.rotation));
                 break;
             case PortalType.orange:
-                shots.Add(Instantiate(orangeShot, transform.position, Quaternion.identity));
+                shots.Add(Instantiate(orangeShot, transform.position, transform.rotation));
                 break;
             default:
                 break;
         }
 
-    }
-
-    private void onRightClick(InputAction.CallbackContext context)
-    {
-        if (context.started)
-        {
-
-        }
     }
 }

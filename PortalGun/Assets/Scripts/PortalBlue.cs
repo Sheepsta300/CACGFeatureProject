@@ -7,6 +7,7 @@ public class PortalBlue : Portal
 
     private void Awake()
     {
-        
+        isActive = false;
+        portalType = PortalType.blue;
     }
 }

@@ -6,6 +6,7 @@ public class PortalOrange : Portal
 {
     private void Awake()
     {
-
+        isActive = false;
+        portalType = PortalType.orange;
     }
 }

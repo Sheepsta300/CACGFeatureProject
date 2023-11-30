@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - MoonRock
+  - Portal
+  - MoonRockForward
+  - MoonRockBackward
+  - MoonRockLeft
+  - MoonRockRight
+  - Camera
+  - Tile
   layers:
   - Default
   - TransparentFX
