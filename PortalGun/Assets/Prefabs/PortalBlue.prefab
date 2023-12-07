@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6544481865305757646}
   - component: {fileID: 6069689152022849465}
   - component: {fileID: 5199023820061191475}
+  - component: {fileID: 5506071778781532975}
   m_Layer: 0
   m_Name: CameraBlue
   m_TagString: Untagged
@@ -128,6 +129,18 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &5506071778781532975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2611113369686211140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da6f889cd2aa379448164a16276ea4c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3092244176610590107
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,10 +152,9 @@ GameObject:
   - component: {fileID: 4962583241025040037}
   - component: {fileID: 6145952738822633571}
   - component: {fileID: 4191318267016635303}
-  - component: {fileID: 6742916104439599625}
   m_Layer: 0
   m_Name: CameraView
-  m_TagString: Untagged
+  m_TagString: View
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -212,29 +224,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6742916104439599625
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3092244176610590107}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0.0000001192093, z: -0.0000005662441}
 --- !u!1 &7158755118878090417
 GameObject:
   m_ObjectHideFlags: 0
@@ -246,9 +235,9 @@ GameObject:
   - component: {fileID: 8670111373727563446}
   - component: {fileID: 1830272337519216655}
   - component: {fileID: 240100222739390579}
-  - component: {fileID: 5504563989947253947}
   - component: {fileID: 8919323355752965734}
   - component: {fileID: -4146049395510841169}
+  - component: {fileID: 5429748590339992387}
   m_Layer: 0
   m_Name: PortalBlue
   m_TagString: Portal
@@ -323,27 +312,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5504563989947253947
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7158755118878090417}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.23999302
-  m_Center: {x: 0, y: 0.047782492, z: 7.9041123}
 --- !u!114 &8919323355752965734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,3 +351,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &5429748590339992387
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7158755118878090417}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 2.1901922}
+  m_Center: {x: 0, y: 0, z: -0.5950961}

@@ -1,6 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+//Wood, Jordan
+//jbwood
+//12/5/2023
+//a class for orange shots
 
 public class OrangeShot : Shot
 {

@@ -12,11 +12,16 @@ TagManager:
   - MoonRockRight
   - Camera
   - Tile
+  - View
+  - MoonRockUp
+  - MoonRockDown
+  - PortalDown
+  - PortalUp
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 

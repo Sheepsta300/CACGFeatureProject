@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//Wood, Jordan
+//jbwood
+//12/5/2023
+//PortalGun behaviour and shot speed class
+
 public enum PortalType
 {
     blue,
@@ -43,18 +48,13 @@ public class PortalGun : MonoBehaviour
         shots = new List<GameObject>();
         deleteShots = new List<GameObject>();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
         moveShots();
     }
-
+    //moves shots each frame forward and deletes any shots that have hit something
     private void moveShots()
     {
         foreach(GameObject shot in shots)
@@ -75,7 +75,7 @@ public class PortalGun : MonoBehaviour
         deleteShots.Clear();
 
     }
-
+    //fires an orange shot on a leftclick
     public void onLeftClick(InputAction.CallbackContext context)
     {
         if(context.started)
@@ -84,7 +84,7 @@ public class PortalGun : MonoBehaviour
            gunLight.GetComponent<Renderer>().material = orangeColour;
         }
     }
-
+    //fires a blue shot on a rightclick
     public void onRightClick(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -93,7 +93,7 @@ public class PortalGun : MonoBehaviour
             gunLight.GetComponent<Renderer>().material = blueColour;
         }
     }
-
+    //shoots a shot of the passed parameter portalType
     private void shoot(PortalType portalType)
     {
         switch (portalType)
